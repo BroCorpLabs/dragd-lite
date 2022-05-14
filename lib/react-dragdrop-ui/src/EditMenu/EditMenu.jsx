@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import { Column, Row } from '../utils/helpers';
 import defaultButtons from './defaultButtons';
 import { v4 as uuidv4 } from 'uuid';
-// import { GiphySelector } from '../DraggableGiphy/GiphySelector';
+import { GiphySelector } from '../Components/DraggableGiphy/GiphySelector';
 // import { HeadConfigurator } from '../NextHead';
-// import { ButtonSelector } from '../DraggableButton/ButtonSelector';
+import { ButtonSelector } from '../Components/DraggableButton/ButtonSelector';
 import SiteContext from '../pageContext';
 // import { TemplateSelector } from '../DraggableTemplate';
 
@@ -12,17 +12,17 @@ export function AddButton({ item, showMenu, setSelector }) {
     const siteData = useContext(SiteContext);
 
     const SELECTORS = {
-        // giphy: <GiphySelector addItemToList={siteData.addItemToList} />,
+        giphy: <GiphySelector addItemToList={siteData.addItemToList} />,
         // headconf: <HeadConfigurator addItemToList={siteData.addItemToList} />,
     };
 
     const FUNCS = {
-        // button: (
-        //     <ButtonSelector
-        //         addItemToList={siteData.addItemToList}
-        //         close={() => siteData.setModal(null)}
-        //     />
-        // ),
+        button: (
+            <ButtonSelector
+                addItemToList={siteData.addItemToList}
+                close={() => siteData.setModal(null)}
+            />
+        ),
         // template: (
         //     <TemplateSelector
         //         addItemToList={siteData.addItemToList}
