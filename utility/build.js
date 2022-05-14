@@ -65,6 +65,7 @@ const runDragdToIpfsBuild = (siteName) => {
     runOne('npm i');
     runOne('npm run libpull');
     changeDirectory('lib/react-dragdrop-ui');
+    runOne('npm run libpull');
     runOne('npm i');
     changeDirectory('../../');
     console.log('Change siteName in buildData.json, programatically...');
