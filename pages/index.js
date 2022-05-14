@@ -4,7 +4,7 @@ import Post from '../components/post';
 import { useState } from 'react';
 import { connectWallet } from '../utility/sol';
 import buildConfig from '../buildData.json';
-
+import DragDrop from '../lib/react-dragdrop-ui/src/DragDrop'
 const apiEndpoint = 'http://127.0.0.1:3000';
 
 export async function getStaticProps() {
@@ -32,7 +32,8 @@ export default function IndexPage({ data }) {
     // For Dra.gd Lite Build Hunks
 
     return (
-        <main className="bg-black text-white">
+        <main className="bg-white text-black">
+            <DragDrop />
             <Head>
                 <title>Dra.gd - Launch A dApp on Solana</title>
             </Head>

@@ -23,26 +23,26 @@ export const connectWallet = async () => {
     try {
         const provider = await getProvider();
         const resp = await provider.connect();
-        connectedWallet = resp.wallet;
+        connectedWallet = resp;
 
         // Establishing connection
         web3connection = new web3.Connection(
             web3.clusterApiUrl('mainnet-beta'), "confirmed"
         );
 
-        var pk = new web3.PublicKey(resp.publicKey);
+        // var pk = new web3.PublicKey(connectedWallet.publicKey);
 
-        // const tokenAccounts = await web3connection.getTokenAccountsByOwner(pk, {
-        //     programId: new web3.PublicKey(TOKEN_PROGRAM_ID)
-        //     });
-
-        console.log(await getTokenAccountsByOwner(web3connection, pk));
-
-        // getNftsOfWallet();
+        getNFTS();
         return resp.publicKey.toString();
     } catch (err) {
         // { code: 4001, message: 'User rejected the request.' }
     }
+}
+
+export async function getNFTS()
+{
+    var tokenAccounts = await getTokenAccountsByOwner(web3connection,new web3.PublicKey(connectedWallet.publicKey));
+    console.log(JSON.stringify(tokenAccounts));
 }
 
 export async function getTokenAccountsByOwner (conn, publicKey) {
