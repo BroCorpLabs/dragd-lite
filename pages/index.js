@@ -26,7 +26,7 @@ export async function getStaticProps() {
 }
 
 export default function IndexPage({ data }) {
-    let itemData = buildConfig["templates"][0];
+    let itemData = data;
     console.log(itemData);
     const [wallet, setWallet] = useState(null);
 
