@@ -1,3 +1,49 @@
 {
-    "siteName": "dragdrop/index"
+    "siteName": "dragdrop/index",
+    "templates": [
+        {
+            "e03bf992-9e22-7374-a2ca-90a416af71a0": {
+                "id": "e03bf992-9e22-7374-a2ca-90a416af71a0",
+                "pos": {
+                    "x": 0,
+                    "y": 239
+                },
+                "rot": {
+                    "deg": 0
+                },
+                "zIndex": 10000,
+                "type": "text",
+                "text": "never make a website again",
+                "fontSize": "48px",
+                "color": "black",
+                "size": {
+                    "width": 462,
+                    "height": 94
+                },
+                "style": {
+                    "fontFamily": "Times New Roman",
+                    "fontSize": "30px"
+                }
+            },
+            "72dca569-3fbc-68e2-4e63-db1775189bec": {
+                "id": "72dca569-3fbc-68e2-4e63-db1775189bec",
+                "pos": {
+                    "x": 0,
+                    "y": 317
+                },
+                "rot": {
+                    "deg": 0
+                },
+                "zIndex": 10001,
+                "type": "text",
+                "text": "spend time with your family",
+                "fontSize": "48px",
+                "color": "black",
+                "size": {
+                    "width": 272,
+                    "height": 100
+                }
+            }
+        }
+    ]
 }

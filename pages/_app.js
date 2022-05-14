@@ -1,6 +1,7 @@
 // import App from 'next/app'
 import './styles.css'
-import '../lib/react-dragdrop-ui/src/App.css'
+import '../lib/react-dragdrop-ui/src/App.css';
+
 function MyApp({ Component, pageProps }) {
     return <Component {...pageProps} />
   }

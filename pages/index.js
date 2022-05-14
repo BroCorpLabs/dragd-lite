@@ -4,7 +4,7 @@ import Post from '../components/post';
 import { useState } from 'react';
 import { connectWallet } from '../utility/sol';
 import buildConfig from '../buildData.json';
-import DragDrop from '../lib/react-dragdrop-ui/src/DragDrop'
+import DragDrop from '../lib/react-dragdrop-ui/src/DragDrop';
 const apiEndpoint = 'http://127.0.0.1:3000';
 
 export async function getStaticProps() {
@@ -12,10 +12,55 @@ export async function getStaticProps() {
 
     let data;
     try {
-        const fetchRes = await fetch(
-            apiEndpoint + `/api/item-get-public?name=${sitePath}`,
-        );
-        data = await fetchRes.json();
+        // const fetchRes = await fetch(
+        //     apiEndpoint + `/api/item-get-public?name=${sitePath}`,
+        // );
+        // data = await fetchRes.json();
+        data = {
+            "e03bf992-9e22-7374-a2ca-90a416af71a0": {
+                "id": "e03bf992-9e22-7374-a2ca-90a416af71a0",
+                "pos": {
+                    "x": 0,
+                    "y": 239
+                },
+                "rot": {
+                    "deg": 0
+                },
+                "zIndex": 10000,
+                "type": "text",
+                "text": "never make a website again",
+                "fontSize": "48px",
+                "color": "black",
+                "size": {
+                    "width": 462,
+                    "height": 94
+                },
+                "style": {
+                    "fontFamily": "Times New Roman",
+                    "fontSize": "30px"
+                }
+            },
+            "72dca569-3fbc-68e2-4e63-db1775189bec": {
+                "id": "72dca569-3fbc-68e2-4e63-db1775189bec",
+                "pos": {
+                    "x": 0,
+                    "y": 317
+                },
+                "rot": {
+                    "deg": 0
+                },
+                "zIndex": 10001,
+                "type": "text",
+                "text": "spend time with your family",
+                "fontSize": "48px",
+                "color": "black",
+                "size": {
+                    "width": 272,
+                    "height": 100
+                }
+            }
+        };
+
         data.preload = true;
     } catch (e) {}
     return {
@@ -25,7 +70,7 @@ export async function getStaticProps() {
 }
 
 export default function IndexPage({ data }) {
-    let itemData = data;
+    let itemData = buildConfig["templates"][0];
     console.log(itemData);
     const [wallet, setWallet] = useState(null);
 
@@ -33,7 +78,29 @@ export default function IndexPage({ data }) {
 
     return (
         <main className="bg-white text-black">
-            <DragDrop />
+            <DragDrop 
+                immutable={false}
+                saveCallback={(data) => {console.log(data)}}
+                onChangedCallback={(data) => {console.log(data)}}
+                initialState={itemData}
+                pending
+            />
+            <div style={{position: 'fixed', right: "20px", top: "20px"}}>
+
+                <div className="flex items-center justify-end">
+                            {<button
+                                className="bg-blue-500 hover:bg-blue-700 max-w-xs truncate text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                type="button"
+                                onClick={async () => {
+                                    !wallet && setWallet(await connectWallet());
+                                }}
+                            >
+                                {!wallet && `Connect Wallet`}
+                                {wallet && wallet}
+                            </button>}
+                </div>
+            </div>
+
             <Head>
                 <title>Dra.gd - Launch A dApp on Solana</title>
             </Head>
@@ -70,77 +137,6 @@ export default function IndexPage({ data }) {
                     </div>
                 </div>
             </div>
-
-            <div className="py-8"></div>
-
-            <div className="w-full mx-auto max-w-md">
-                <form className="bg-white shadow-md text-black rounded px-8 pt-6 pb-8 mb-4">
-                    <div className="flex items-center justify-center">
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="button"
-                            onClick={async () => {
-                                setWallet(await connectWallet());
-                            }}
-                        >
-                            Connect Wallet
-                        </button>
-                    </div>
-                    <div>{wallet && wallet}</div>
-                    <div className="mb-4">
-                        <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
-                            for="username"
-                        >
-                            Solana domain
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="username"
-                            type="text"
-                            placeholder="simple.sol"
-                        ></input>
-                    </div>
-
-                    <div className="mb-4">
-                        <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
-                            for="username"
-                        >
-                            Elemdata
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="username"
-                            type="text"
-                            placeholder="{}"
-                        ></input>
-                    </div>
-
-                    {/* <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2" for="username">
-          Your NFTs
-        </label>
-        select your nfts
-      </div> */}
-
-                    <div className="flex items-center justify-between">
-                        <a
-                            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                            href="#"
-                        >
-                            Clear
-                        </a>
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="button"
-                        >
-                            Next
-                        </button>
-                    </div>
-                </form>
-            </div>
-
             {/* <section>
           {postList.map((post) => (
             <Post {...post} key={post.id} />
