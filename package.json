@@ -21,7 +21,7 @@
         "export": "next export",
         "prestart": "npm run export",
         "start": "serve out",
-        "libpull": "git submodule update --recursive --remote --merge"
+        "libpull": "git submodule update --init --recursive"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.7",
