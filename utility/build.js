@@ -63,6 +63,10 @@ const runDragdToIpfsBuild = (siteName) => {
     runOne('git clone https://github.com/BroCorpLabs/dragd-lite');
     changeDirectory('dragd-lite');
     runOne('npm i');
+    runOne('npm run libpull');
+    changeDirectory('lib/react-dragdrop-ui');
+    runOne('npm i');
+    changeDirectory('../../');
     console.log('Change siteName in buildData.json, programatically...');
     const buildData = JSON.parse(
         fs.readFileSync('./buildData.json', {
