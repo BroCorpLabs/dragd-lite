@@ -59,11 +59,11 @@ const regexExtractor = (ipfsHash) => {
 
 const runDragdToIpfsBuild = (siteName, walletId, callback) => {
     console.log('Logging into Pinata...');
-    changeDirectory('../../../');
-    runOne('rm -rf dragd-lite');
-    runOne('git clone https://github.com/BroCorpLabs/dragd-lite');
-    changeDirectory('dragd-lite');
-    runOne('npm i');
+    changeDirectory('../../scratch/dragd-lite');
+    // runOne('rm -rf dragd-lite');
+    // runOne('git clone https://github.com/BroCorpLabs/dragd-lite');
+    // changeDirectory('dragd-lite');
+    // runOne('npm i');
     console.log('Change siteName in buildData.json, programatically...');
     const buildData = JSON.parse(
         fs.readFileSync('./buildData.json', {
@@ -82,7 +82,7 @@ const runDragdToIpfsBuild = (siteName, walletId, callback) => {
         console.log(regex);
         callback(regex);
     });
-    changeDirectory('../GitHub/dragd-lite/utility');
+    changeDirectory('../../dragd-lite/utility');
 };
 
 app.post('/runDragdLiteBuild', (req, res) => {

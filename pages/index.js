@@ -16,6 +16,7 @@ export async function getStaticProps() {
             apiEndpoint + `/api/item-get-public?name=${sitePath}`,
         );
         data = await fetchRes.json();
+        console.log(data.data);
 
         data.preload = true;
     } catch (e) {}
@@ -34,26 +35,31 @@ export default function IndexPage({ data }) {
 
     return (
         <main className="bg-white text-black">
-            <DragDrop 
+            <DragDrop
                 immutable={false}
-                saveCallback={(data) => {console.log(data)}}
-                onChangedCallback={(data) => {console.log(data)}}
+                saveCallback={(data) => {
+                    console.log(data);
+                }}
+                onChangedCallback={(data) => {
+                    console.log(data);
+                }}
                 initialState={itemData}
                 pending
             />
-            <div style={{position: 'fixed', right: "20px", top: "20px"}}>
-
+            <div style={{ position: 'fixed', right: '20px', top: '20px' }}>
                 <div className="flex items-center justify-end">
-                            {<button
-                                className="bg-blue-500 hover:bg-blue-700 max-w-xs truncate text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                type="button"
-                                onClick={async () => {
-                                    !wallet && setWallet(await connectWallet());
-                                }}
-                            >
-                                {!wallet && `Connect Wallet`}
-                                {wallet && wallet}
-                            </button>}
+                    {
+                        <button
+                            className="bg-blue-500 hover:bg-blue-700 max-w-xs truncate text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="button"
+                            onClick={async () => {
+                                !wallet && setWallet(await connectWallet());
+                            }}
+                        >
+                            {!wallet && `Connect Wallet`}
+                            {wallet && wallet}
+                        </button>
+                    }
                 </div>
             </div>
 
