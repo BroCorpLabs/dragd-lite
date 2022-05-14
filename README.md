@@ -1,8 +1,6 @@
-# Static export example
+# Dra.gd Lite 💡
 
-This example show how to export to static HTML files your Next.js application fetching data from an API to generate a dynamic list of pages.
-
-When trying to run `npm start` it will build and export your pages into the `out` folder and serve them on `localhost:5000`.
+Drag and Drop Low code UI Builder ⛏ -> [dra.gd](dra.gd) built on [Next.js](https://nextjs.org/)  
 
 ## Deploy your own
 
