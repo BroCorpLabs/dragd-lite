@@ -27,7 +27,15 @@ export async function getStaticProps() {
 }
 
 export default function IndexPage({ data }) {
-    let itemData = data;
+    // console.log(data);
+    buildConfig['elemData'] = [];
+    if (data) {
+        Object.keys(data['page']).forEach((eachKey) => {
+            buildConfig['elemData'].push(data['page'][eachKey]);
+        });
+    }
+
+    let itemData = buildConfig['elemData'];
     console.log(itemData);
     const [wallet, setWallet] = useState(null);
 
