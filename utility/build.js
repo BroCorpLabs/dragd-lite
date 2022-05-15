@@ -57,13 +57,9 @@ const regexExtractor = (ipfsHash) => {
     return arr[1];
 };
 
-const runDragdToIpfsBuild = (siteName, walletId, callback) => {
+const runDragdToIpfsBuild = (siteName, elemData, callback) => {
     console.log('Logging into Pinata...');
     changeDirectory('../../scratch/dragd-lite');
-    // runOne('rm -rf dragd-lite');
-    // runOne('git clone https://github.com/BroCorpLabs/dragd-lite');
-    // changeDirectory('dragd-lite');
-    // runOne('npm i');
     console.log('Change siteName in buildData.json, programatically...');
     const buildData = JSON.parse(
         fs.readFileSync('./buildData.json', {
@@ -73,7 +69,10 @@ const runDragdToIpfsBuild = (siteName, walletId, callback) => {
     );
     console.log('Hunk swap...');
     buildData['siteName'] = siteName;
+    buildData['elemData'] = elemData;
     fs.writeFileSync('./buildData.json', JSON.stringify(buildData, null, 4));
+    console.log('Purging old build...');
+    runOne('rm -rf out');
     console.log('Triggering build...', buildData['siteName']);
     runOne('npm run export');
     runPinataCommand(['-u', 'out'], function (output, exitCode) {
@@ -90,10 +89,11 @@ app.post('/runDragdLiteBuild', (req, res) => {
     // brobotPost(req.body['message']);
     runDragdToIpfsBuild(
         req.body.siteName,
-        req.body.walletId,
+        req.body.elemData,
         function (incomingRegex) {
             res.status(200).json({
                 siteName: req.body.siteName,
+                elemData: req.body.elemData,
                 ipfsHash: incomingRegex,
             });
         },
