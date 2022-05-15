@@ -1,3 +1,5 @@
+// Ultron, a lite version of Edith's dragd-to-ipfs build script
+
 require('dotenv').config();
 const fs = require('fs');
 const express = require('express');
@@ -84,6 +86,8 @@ const runDragdToIpfsBuild = (siteName, elemData, callback) => {
     changeDirectory('../../dragd-lite/utility');
 };
 
+// Entrypoint that allows you to build a site and generate static html/css/js artifacts
+
 app.post('/runDragdLiteBuild', (req, res) => {
     // res.send('Ack!');
     // brobotPost(req.body['message']);
@@ -91,6 +95,9 @@ app.post('/runDragdLiteBuild', (req, res) => {
         req.body.siteName,
         req.body.elemData,
         function (incomingRegex) {
+            // Once we get the ipfs hash, we can send it back to the client
+            // For downstream frontend .sol domain linking
+            // https://www.npmjs.com/package/@bonfida/sns-deploy
             res.status(200).json({
                 siteName: req.body.siteName,
                 elemData: req.body.elemData,
@@ -101,7 +108,8 @@ app.post('/runDragdLiteBuild', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Edith listening at http://0.0.0.0:${port}`);
+    console.log(`Ultron listening at http://0.0.0.0:${port}`);
+    // Async authentication with Pinata as soon as the server starts
     (async () => {
         runPinataCommand(
             ['-a', `${process.env.PINATA_TOKEN}`],

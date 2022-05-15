@@ -3,14 +3,28 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { connectWallet } from '../utility/sol';
 import buildConfig from '../buildData.json';
+
+// ^^ Build config that allows you to staticly export a site and generate static html/css/js artifacts
+// that can be pinned on ipfs and served up as a static site.
+
 import DragDrop from '../lib/react-dragdrop-ui/src/DragDrop';
+// ^^ That's the DragDrop lib, soon to be hosted on https://github.com/BroCorpLabs/react-dragdrop-ui
+// TODO: Fix this, it's a bit of a hack, but it works for now.
+
 const apiEndpoint = 'http://127.0.0.1:3000';
+// ^^ This is the default endpoint for the Next API server. (refers to self)
+
 
 export async function getStaticProps() {
+    // Get the site you want to build from the build config
+    // If you check the tests folder, you'll see we bring this in ondemand
+    // from an endpoint on the build server (see build.js => /runDragdLiteBuild)
+
     var sitePath = buildConfig['siteName'];
 
     let data;
     try {
+        // Retrieve the entire hunk of data for the site
         const fetchRes = await fetch(
             apiEndpoint + `/api/item-get-public?name=${sitePath}`,
         );
@@ -20,6 +34,9 @@ export async function getStaticProps() {
         data.preload = true;
     } catch (e) {}
     return {
+        // hydrated props are passed to the page component, revalidate isn't used here
+        // as we're not using server side rendering (SSR) (yet)
+        // https://nextjs.org/blog/next-12-1 (TODO: scope -> on demand incremental static regeneration)
         props: { data: data?.data ? data.data : null },
         revalidate: 60,
     };
@@ -34,7 +51,11 @@ export default function IndexPage({ data }) {
         });
     }
 
-    let itemData = buildConfig['templates'][0];
+    // By now, we should have the data we need to render the site.
+    // We'll use the DragDrop lib to render the site.
+    let itemData = buildConfig['elemData'];
+    
+
     console.log(itemData);
     const [wallet, setWallet] = useState(null);
 
@@ -106,11 +127,6 @@ export default function IndexPage({ data }) {
                     </div>
                 </div>
             </div>
-            {/* <section>
-          {postList.map((post) => (
-            <Post {...post} key={post.id} />
-          ))}
-        </section> */}
         </main>
     );
 

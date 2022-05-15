@@ -1,3 +1,5 @@
+// Solana utility functions
+
 import * as web3 from "@solana/web3.js";
 import { TOKEN_PROGRAM_ID, AccountLayout, u64 } from "@solana/spl-token";
 
