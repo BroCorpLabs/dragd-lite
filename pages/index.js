@@ -35,7 +35,7 @@ export default function IndexPage({ data }) {
         });
     }
 
-    let itemData = buildConfig['elemData'];
+    let itemData = buildConfig['templates'][0];
     console.log(itemData);
     const [wallet, setWallet] = useState(null);
 
