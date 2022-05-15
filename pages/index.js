@@ -1,6 +1,5 @@
 import Head from 'next/head';
 
-import Post from '../components/post';
 import { useState } from 'react';
 import { connectWallet } from '../utility/sol';
 import buildConfig from '../buildData.json';
